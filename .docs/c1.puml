@@ -1,0 +1,23 @@
+@startuml StepCraft_System_Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title System Context Diagram for StepCraft(改)
+
+Person(user, "一般ユーザー")
+
+System(stepcraft, "StepCraft", "AIによるタスク細分化、タイムライン管理、グループマッチングを提供するメインシステム。")
+
+System_Ext(ai_engine, "AI Engine (LLM)", "OpenAIやAnthropic等の外部AI。抽象的なタスクを、5分以内に完了できる具体的なステップに分解するロジックを提供。")
+System_Ext(calendar, "Google / Apple Calendar", "ユーザーの既存の予定を同期し、空き時間にタスクを自動配置するための外部カレンダー。")
+System_Ext(auth, "Authentication System", "Firebase Auth等。ユーザーの認証とアイデンティティ管理を行う。")
+
+Rel(user, stepcraft, "インボックスへの入力、タイムラインの閲覧、タスクの実行完了報告を行う")
+
+Rel_R(stepcraft, ai_engine, "タスクの細分化を依頼し、分解されたステップを受け取る")
+Rel_D(stepcraft, calendar, "既存の予定を取得し、確定したステップをカレンダーに同期する")
+Rel_D(stepcraft, auth, "ユーザーのログイン・サインアップを委譲する")
+
+@enduml
+
